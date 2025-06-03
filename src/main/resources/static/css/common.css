@@ -1,0 +1,12 @@
+html, body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Nunito-Regular", Helvetica, Arial, sans-serif;
+}
+
+#container {
+    max-width: 1200px;
+    margin: 0 ;
+}
+
