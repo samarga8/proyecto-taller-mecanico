@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="cabecera">
+    <div class="container text-center">
+        <div class="navbar-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <img th:src="@{/img/logo.jpg}" class="img-fluid" style="max-width: 200px;" alt="Logo taller">
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Vehiculos
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{vehiculos}">Añadir vehículo</a></li>
+                            <li><a class="dropdown-item" th:href="@{vehiculos}">Listar Vehículos</a></li>
+                            <li><a class="dropdown-item" th:href="@{vehiculos}">Buscar por matricula</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Clientes
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/clientes/nuevoCliente}">Añadir cliente</a></li>
+                            <li><a class="dropdown-item" th:href="@{/clientes/listar}">Listar clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente}">Contactar cliente</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Reparaciones
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{reparaciones}">Nueva reparación</a></li>
+                            <li><a class="dropdown-item" th:href="@{reparaciones}">Reparaciones activas</a></li>
+                            <li><a class="dropdown-item" th:href="@{reparaciones}">Reparaciones finalizadas</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Inventario
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{inventarios}">Añadir repuesto</a></li>
+                            <li><a class="dropdown-item" th:href="@{inventarios}">Ver inventario</a></li>
+                            <li><a class="dropdown-item" th:href="@{inventarios}">Stock bajo</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Facturas
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{facturacion}">Nueva factura</a></li>
+                            <li><a class="dropdown-item" th:href="@{facturacion}">Cobrar factura</a></li>
+                            <li><a class="dropdown-item" th:href="@{facturacion}">Ver facturas</a></li>
+                            <li><a class="dropdown-item" th:href="@{facturacion}">Informes mensuales</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3" id="navbar">
+                    <h5 class="text-dark-emphasis">Bienvenido <span sec:authentication="principal.username"></span></h5>
+                    <ul class="nav navbar-nav">
+                        <li sec:authorize="isAuthenticated()">
+
+                            <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none;"></form>
+
+                            <a href="#" class="text-dark-emphasis" style="text-decoration: none"
+                               onclick="document.getElementById('logoutForm').submit(); return false;">
+                                Cerrar sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

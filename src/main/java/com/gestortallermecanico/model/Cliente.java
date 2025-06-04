@@ -3,6 +3,8 @@ package com.gestortallermecanico.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Cliente {
@@ -10,13 +12,16 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    private String dni;
+
     private String nombre;
     private String apellidos;
     private String telefono;
-    private String email;
-    private String dni;
 
-    private String direccion;
+    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
+    private Set<Factura> facturas = new HashSet<>();
+
 
     public Long getId() {
         return id;
@@ -50,12 +55,12 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public String getEmail() {
-        return email;
+    public Set<Factura> getFacturas() {
+        return facturas;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setFacturas(Set<Factura> facturas) {
+        this.facturas = facturas;
     }
 
     public String getDni() {
@@ -66,11 +71,5 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
 }

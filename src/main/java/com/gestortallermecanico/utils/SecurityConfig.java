@@ -29,6 +29,7 @@ public class SecurityConfig {
                                 "/js/**",
                                 "/fonts/**",
                                 "/css/**",
+                                "/fragments/**",
                                 "/img/**").permitAll()
                         .anyRequest().authenticated()
                 )
