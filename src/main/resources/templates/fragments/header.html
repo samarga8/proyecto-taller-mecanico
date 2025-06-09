@@ -31,7 +31,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/clientes/nuevoCliente}">Añadir cliente</a></li>
                             <li><a class="dropdown-item" th:href="@{/clientes/listar}">Listar clientes</a></li>
-                            <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente}">Contactar cliente</a></li>
+                            <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente/{origen}(origen='buscar')}">Contactar cliente</a></li>
                         </ul>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             Facturas
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{facturacion}">Nueva factura</a></li>
+                            <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente/{origen}(origen='factura')}">Nueva factura</a></li>
                             <li><a class="dropdown-item" th:href="@{facturacion}">Cobrar factura</a></li>
                             <li><a class="dropdown-item" th:href="@{facturacion}">Ver facturas</a></li>
                             <li><a class="dropdown-item" th:href="@{facturacion}">Informes mensuales</a></li>

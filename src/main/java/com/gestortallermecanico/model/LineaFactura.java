@@ -14,18 +14,22 @@ public class LineaFactura implements Serializable {
     private Long id;
 
     @NotNull
-    private String articulo;
+    private String concepto;
 
     @NotNull
-    private Double precioUnitario;
+    private Double precio;
 
     @NotNull
     private Integer cantidad;
+
+    private Double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_factura")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Factura factura;
+
+
 
     public Long getId() {
         return id;
@@ -35,20 +39,28 @@ public class LineaFactura implements Serializable {
         this.id = id;
     }
 
-    public String getArticulo() {
-        return articulo;
+    public String getConcepto() {
+        return concepto;
     }
 
-    public void setArticulo(String articulo) {
-        this.articulo = articulo;
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 
-    public Double getPrecioUnitario() {
-        return precioUnitario;
+    public Double getPrecio() {
+        return precio;
     }
 
-    public void setPrecioUnitario(Double precioUnitario) {
-        this.precioUnitario = precioUnitario;
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public Integer getCantidad() {

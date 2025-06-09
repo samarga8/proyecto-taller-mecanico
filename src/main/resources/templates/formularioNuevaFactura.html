@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulario de Factura</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="bg-light">
+
+<div th:insert="~{fragments/header :: cabecera}"></div>
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold">Nueva Factura</h1>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="row m-3">
+                <div class="col-md-4">
+                    <strong>DNI:</strong> <span th:text="${cliente.dni}"></span>
+                </div>
+                <div class="col-md-4">
+                    <strong>Nombre:</strong> <span th:text="${cliente.nombre}"></span>
+                </div>
+                <div class="col-md-4">
+                    <strong>Teléfono:</strong> <span th:text="${cliente.telefono}"></span>
+                </div>
+            </div>
+
+            <form id="formFactura" class="m-3" th:object="${factura}"
+                  th:action="@{/facturas/nuevaFactura/{numeroFact}(numeroFact=${factura.numeroFact})}"
+                  method="post">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Número de Factura:</label>
+                        <div class="form-control bg-light" th:text="${factura.numeroFact}"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha:</label>
+                        <div class="form-control bg-light" th:text="${factura.fecha}"></div>
+                    </div>
+                </div>
+            </form>
+
+            <a th:href="@{/lineas/nuevaLinea/{numeroFact}(numeroFact=${factura.numeroFact})}"
+               class="btn btn-outline-primary m-3">
+                Añadir líneas
+            </a>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="table-responsive table-responsive-lg">
+                        <table class="table table-striped table-bordered table-hover align-middle w-100">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="linea : ${lineas}">
+                                <td th:text="${linea.concepto}"></td>
+                                <td th:text="${#numbers.formatDecimal(linea.precio, 1, 'POINT', 2, 'POINT')} + ' €'"></td>
+                                <td th:text="${linea.cantidad}"></td>
+                                <td th:text="${#numbers.formatDecimal(linea.total, 1, 'POINT', 2, 'POINT')} + ' €'"></td>
+                            </tr>
+                            <tr th:if="${lineas == null or lineas.size() == 0}">
+                                <td colspan="4" class="text-center text-muted">No hay líneas añadidas todavía</td>
+                            </tr>
+                            <tr th:if="${lineas != null and !lineas.isEmpty()}" class="table-light fw-bold">
+                                <td colspan="3" class="text-end">Total Factura:</td>
+                                <td th:text="${#numbers.formatDecimal(factura.totalFactura, 1, 'POINT', 2, 'POINT')} + ' €'" class="text-end"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" form="formFactura" class="btn btn-success mt-5">
+                Guardar Factura
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+</body>
+</html>

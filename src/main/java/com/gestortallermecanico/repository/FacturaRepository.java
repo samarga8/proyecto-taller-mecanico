@@ -11,4 +11,6 @@ public interface FacturaRepository extends JpaRepository<Factura,Long> {
 
     Optional<Factura> findFacturaByCliente(Cliente cliente);
     long countByFechaBetween(LocalDate start, LocalDate end);
+
+    Factura findByNumeroFact(String numFact);
 }

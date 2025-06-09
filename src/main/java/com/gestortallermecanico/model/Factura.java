@@ -22,7 +22,7 @@ public class Factura implements Serializable {
     @NotNull
     private LocalDate fecha;
 
-    @NotNull
+
     private Double totalFactura;
 
     private Boolean pagada;
@@ -35,6 +35,17 @@ public class Factura implements Serializable {
     @OneToMany(mappedBy = "factura",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<LineaFactura> lineas = new HashSet<>();
 
+    public Factura() {
+    }
+
+    public Factura(Long id, String numeroFact, LocalDate fecha, Double totalFactura, Boolean pagada, Cliente cliente) {
+        this.id = id;
+        this.numeroFact = numeroFact;
+        this.fecha = fecha;
+        this.totalFactura = totalFactura;
+        this.pagada = pagada;
+        this.cliente = cliente;
+    }
 
     public Long getId() {
         return id;

@@ -13,9 +13,10 @@
 
 </head>
 <body>
-<div th:replace="fragments/header :: cabecera"></div>
+<div th:insert="~{fragments/header :: cabecera}"></div>
+
 <div class="container mt-5">
-    <form th:object="${cliente}" th:action="@{/clientes/obtenerCliente}" method="post">
+    <form th:object="${cliente}" th:action="@{/clientes/obtenerCliente/{origen}(origen='buscar')}" method="post">
         <div class="row">
             <label class="col-2 h4">DNI:</label>
             <div class="col-7">

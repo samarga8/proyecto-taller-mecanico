@@ -24,12 +24,13 @@ public class LineaFacturaServiceImpl implements ILineaFacturaService{
 
 
     @Override
-    public LineaFactura crearLineaFactura(LineaFacturaRegistroDTO dto) {
-        return null;
+    public List<Factura> listarFacturas(Cliente cliente) {
+        return repoFactura.findAll().stream().filter(f->f.getCliente().equals(cliente)).toList();
     }
 
     @Override
-    public List<Factura> listarFacturas(Cliente cliente) {
-        return repoFactura.findAll().stream().filter(f->f.getCliente().equals(cliente)).toList();
+    public List<LineaFactura> obtenerLineasPorNumeroFactura(String numFact) {
+        return repoLinea.findAll().stream().filter(l->l.getFactura().getNumeroFact().equals(numFact)).toList();
+
     }
 }

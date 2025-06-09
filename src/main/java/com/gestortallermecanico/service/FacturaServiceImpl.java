@@ -2,14 +2,14 @@ package com.gestortallermecanico.service;
 
 import com.gestortallermecanico.model.Cliente;
 import com.gestortallermecanico.model.Factura;
-import com.gestortallermecanico.model.dao.FacturaRegistroDTO;
+import com.gestortallermecanico.model.LineaFactura;
 import com.gestortallermecanico.repository.ClienteRepository;
 import com.gestortallermecanico.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class FacturaServiceImpl implements IFacturaService{
@@ -21,31 +21,50 @@ public class FacturaServiceImpl implements IFacturaService{
     private FacturaRepository repoFactura;
 
     @Override
-    public Factura crearFactura(String dni) throws Exception {
-        Optional<Cliente> cliente = repoCliente.findFirstByDni(dni);
-
-       if (cliente.isPresent()){
-           LocalDate hoy = LocalDate.now();
-           int year = hoy.getYear();
-
-           LocalDate startOfYear = LocalDate.of(year, 1, 1);
-           LocalDate endOfYear = LocalDate.of(year, 12, 31);
-           long count = repoFactura.countByFechaBetween(startOfYear, endOfYear);
-           long siguienteNumero = count + 1;
-
-           String numeroFact = String.format("FAC-%d%03d", year, siguienteNumero);
-
-           Factura factura = new Factura();
-           factura.setFecha(hoy);
-           factura.setCliente(cliente.get());
-           factura.setNumeroFact(numeroFact);
-           factura.setTotalFactura(0.0);
-           factura.setPagada(false);
-
-           return repoFactura.save(factura);
-       }else{
-           throw new Exception("El cliente no existe");
-       }
+    public void crearFactura(Factura factura) {
+        repoFactura.save(factura);
 
     }
+
+    @Override
+    public String crearNumeroFactura() {
+        LocalDate hoy = LocalDate.now();
+        int year = hoy.getYear();
+
+        LocalDate startOfYear = LocalDate.of(year, 1, 1);
+        LocalDate endOfYear = LocalDate.of(year, 12, 31);
+        long count = repoFactura.countByFechaBetween(startOfYear, endOfYear);
+        long siguienteNumero = count + 1;
+
+        return String.format("FAC-%d%03d", year, siguienteNumero);
+    }
+
+    @Override
+    public Set<Factura> listaFacturasCliente(String dni) {
+        Cliente cliente = repoCliente.findFirstByDni(dni).get();
+        return cliente.getFacturas();
+    }
+
+    @Override
+    public Factura obtenerFacturaCliente(String dni) {
+        return null;
+    }
+
+    @Override
+    public Factura obtenerFacturaPorNumFact(String numerofact) {
+        return repoFactura.findByNumeroFact(numerofact);
+    }
+
+    @Override
+    public Double calcularTotalfactura(String numFact) {
+        Factura factura = repoFactura.findByNumeroFact(numFact);
+        return  factura.getLineas().stream().mapToDouble(LineaFactura::getTotal).sum();
+    }
+
+    @Override
+    public Factura actualizarfactura(Factura factura) {
+        return repoFactura.save(factura);
+    }
+
+
 }
