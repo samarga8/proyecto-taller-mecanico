@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pago completado</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .alert-box {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        #status {
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        #email {
+            color: #0c5460;
+            margin-bottom: 1rem;
+        }
+
+        .redirect-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="alert-box">
+    <h1>¡Gracias por tu compra!</h1>
+    <p id="status">Consultando estado del pago...</p>
+    <p id="email"></p>
+   <!-- <p class="redirect-not">Serás redirigido al inicio en <span id="countdown">5</span> segundos.</p>-->
+    <a href="/index" class="btn">Ir al inicio ahora</a>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const sessionId = params.get("session_id");
+        const facturaId = params.get("facturaId");
+
+        if (!sessionId || !facturaId) {
+            document.getElementById("status").textContent = "Faltan parámetros en la URL.";
+            return;
+        }
+
+        fetch(`/api/session-status?session_id=${sessionId}&facturaId=${facturaId}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("status").textContent = `Estado del pago: ${data.status || 'desconocido'}`;
+                if (data.customer_email) {
+                    document.getElementById("email").textContent = `Correo del cliente: ${data.customer_email}`;
+                }
+            })
+            .catch(err => {
+                document.getElementById("status").textContent = "Error consultando el estado del pago.";
+                console.error("Error:", err);
+            });
+
+        // Redirección automática con cuenta regresiva
+        let seconds = 3;
+        const countdown = document.getElementById("countdown");
+
+        const timer = setInterval(() => {
+            seconds--;
+            countdown.textContent = seconds;
+            if (seconds === 0) {
+                clearInterval(timer);
+                window.location.href = "/index";
+            }
+        }, 1000);
+    });
+</script>
+</body>
+</html>

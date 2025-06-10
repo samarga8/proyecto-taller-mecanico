@@ -38,7 +38,7 @@ public class ClienteController {
 
         try {
             service.registrarCliente(dto);
-            return "formularioCliente";
+            return "index";
         } catch (Exception e) {
             model.addAttribute("accion", "/clientes/nuevoCliente");
             model.addAttribute("error", e.getMessage());
@@ -97,6 +97,36 @@ public class ClienteController {
             return "formularioObtenerCliente";
         }
     }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditarCliente( @PathVariable long id,Model model){
+        Cliente cliente =  service.findById(id);
+        model.addAttribute("cliente",cliente);
+        return "editarCliente";
+    }
+
+    @PostMapping("/editar/{id}")
+    public String acutalizarCliente(@PathVariable long id, @ModelAttribute("cliente") Cliente cliente,Model model){
+        Cliente clienteExiste = service.findById(id);
+        clienteExiste.setId(id);
+        clienteExiste.setDni(cliente.getDni());
+        clienteExiste.setNombre(cliente.getNombre());
+        clienteExiste.setApellidos(cliente.getApellidos());
+        clienteExiste.setEmail(cliente.getEmail());
+        clienteExiste.setDireccion(cliente.getDireccion());
+        clienteExiste.setTelefono(cliente.getTelefono());
+
+        service.actualizarCliente(clienteExiste);
+        return "redirect:/clientes";
+
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarCliente(@PathVariable long id){
+        service.eliminarCliente(id);
+        return "redirect:/clientes/listar";
+    }
+
 }
 
 

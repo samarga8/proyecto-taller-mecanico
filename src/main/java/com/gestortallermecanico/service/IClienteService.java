@@ -11,7 +11,11 @@ public interface IClienteService {
     List<Cliente> listarClientes();
     Cliente obtenerCliente(String dni) throws Exception;
 
+    Cliente obtenerClientePorFactura(String numFact);
+
     Cliente actualizarCliente(Cliente cliente);
 
     void eliminarCliente(Long id);
+
+    Cliente findById(long id);
 }

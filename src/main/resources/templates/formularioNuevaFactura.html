@@ -77,10 +77,7 @@
                             <tr th:if="${lineas == null or lineas.size() == 0}">
                                 <td colspan="4" class="text-center text-muted">No hay líneas añadidas todavía</td>
                             </tr>
-                            <tr th:if="${lineas != null and !lineas.isEmpty()}" class="table-light fw-bold">
-                                <td colspan="3" class="text-end">Total Factura:</td>
-                                <td th:text="${#numbers.formatDecimal(factura.totalFactura, 1, 'POINT', 2, 'POINT')} + ' €'" class="text-end"></td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>

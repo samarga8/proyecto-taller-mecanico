@@ -50,12 +50,12 @@
                         <span th:text="${#temporals.format(factura.fecha, 'dd/MM/yyyy')}"></span>
                         <span th:if="${!factura.pagada}" class="text-danger"> (Pendiente)</span>
 
-                        <!-- Botón para pagar factura -->
                         <a th:if="${!factura.pagada}"
                            class="btn btn-sm btn-success ms-4"
-                           th:href="@{'/facturas/pagar/' + ${factura.id}}">
+                           th:href="@{'/checkout.html?facturaId=' + ${factura.id}}">
                             Pagar
                         </a>
+
                     </li>
                 </ul>
             </div>

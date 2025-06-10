@@ -26,11 +26,12 @@
                     <th>Apellido</th>
                     <th>Teléfono</th>
                     <th>Facturas</th>
+                    <th>Acciones</th> <!-- Nueva columna -->
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${#lists.isEmpty(listaClientes)}">
-                    <td colspan="5" class="text-center">No hay clientes registrados.</td>
+                    <td colspan="6" class="text-center">No hay clientes registrados.</td>
                 </tr>
                 <tr th:each="cliente : ${listaClientes}">
                     <td th:text="${cliente.dni}"></td>
@@ -38,17 +39,27 @@
                     <td th:text="${cliente.apellidos}"></td>
                     <td th:text="${cliente.telefono}"></td>
                     <td>
-                        <a th:href="@{'/clientes/facturas/' + ${cliente.id}}" class="btn btn-outline-primary btn-sm">
+                        <a th:if="${cliente.facturas}"
+                           th:href="@{'/clientes/facturas/' + ${cliente.id}}"
+                           class="btn btn-outline-primary btn-sm">
                             Facturas (<span th:text="${cliente.facturas.size()}"></span>)
                         </a>
                     </td>
-
+                    <td>
+                        <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="btn btn-warning btn-sm">Editar</a>
+                        <a th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('¿Estás seguro de eliminar este cliente?');">
+                            Eliminar
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

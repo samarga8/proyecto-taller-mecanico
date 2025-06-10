@@ -26,35 +26,44 @@
     <form class="row g-4 mt-5" th:object="${cliente}" th:action="${accion}" method="post">
         <div class="col-3">
             <label class="form-label">DNI:
-                <input type="text" th:field="*{dni}" class="form-control" placeholder="Escribe el dni"/>
+                <input type="text" th:field="*{dni}" class="form-control" placeholder="Escribe el dni" required/>
             </label>
             <div th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="text-danger"></div>
         </div>
 
         <div class="col-3">
             <label>Nombre:
-                <input type="text" th:field="*{nombre}" class="form-control" placeholder="Escribe el nombre"/>
+                <input type="text" th:field="*{nombre}" class="form-control" placeholder="Escribe el nombre" required/>
             </label>
             <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger"></div>
         </div>
 
         <div class="col-3">
             <label>Apellidos:
-                <input type="text" th:field="*{apellidos}" class="form-control" placeholder="Escribe los apellidos"/>
+                <input type="text" th:field="*{apellidos}" class="form-control" placeholder="Escribe los apellidos" required/>
             </label>
             <div th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" class="text-danger"></div>
         </div>
 
         <div class="col-3">
             <label>Teléfono:
-                <input type="text" th:field="*{telefono}" class="form-control" placeholder="Escribe el teléfono"/>
+                <input type="text" th:field="*{telefono}" class="form-control" placeholder="Escribe el teléfono" required/>
             </label>
             <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="text-danger"></div>
         </div>
+        <div class="col-6 mb-3">
+            <label for="direccion">Dirección:</label>
+            <input type="text" th:field="*{direccion}" id="direccion" class="form-control" placeholder="Escribe la dirección" required/>
+            <div th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" class="text-danger"></div>
+        </div>
 
+        <div class="col-6 mb-3">
+            <label for="email">Email:</label>
+            <input type="email" th:field="*{email}" id="email" class="form-control" placeholder="example@gmail.com" required/>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
+        </div>
 
-            <button class="btn btn-primary" type="submit">Guardar</button>
-
+        <button class="btn btn-primary" type="submit">Guardar</button>
 
     </form>
 </div>

@@ -18,16 +18,16 @@
 
         .register-container {
             max-width: 500px;
-            margin: 50px auto;
+            margin: 10px auto;
             background-color: white;
-            padding: 30px;
+            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         .register-image {
             width: 100%;
-            height: 180px;
+            height: 250px;
             object-fit: cover;
             border-radius: 10px 10px 0 0;
             margin-bottom: 20px;
@@ -38,7 +38,7 @@
 
 <div class="container">
     <div class="register-container">
-        <img th:src="@{/img/taller.jpg}" alt="Encabezado" class="register-image"/>
+        <img th:src="@{/img/logo.jpg}" alt="Encabezado" class="register-image"/>
 
         <div th:if="${param.exito}">
             <div class="alert alert-info">Se ha registrado exitosamente</div>

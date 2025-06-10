@@ -6,7 +6,7 @@
         <div class="navbar-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <img th:src="@{/img/logo.jpg}" class="img-fluid" style="max-width: 200px;" alt="Logo taller">
+                    <img th:src="@{/img/logo.jpg}" class="img-fluid" style="max-width: 150px;" alt="Logo taller">
                 </div>
                 <div class="col">
                     <div class="dropdown">
@@ -70,7 +70,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente/{origen}(origen='factura')}">Nueva factura</a></li>
                             <li><a class="dropdown-item" th:href="@{facturacion}">Cobrar factura</a></li>
-                            <li><a class="dropdown-item" th:href="@{facturacion}">Ver facturas</a></li>
+                            <li><a class="dropdown-item" th:href="@{/facturas/listarFacturas}">Ver facturas</a></li>
                             <li><a class="dropdown-item" th:href="@{facturacion}">Informes mensuales</a></li>
                         </ul>
                     </div>

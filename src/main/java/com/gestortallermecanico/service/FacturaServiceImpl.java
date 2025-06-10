@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FacturaServiceImpl implements IFacturaService{
@@ -55,15 +58,15 @@ public class FacturaServiceImpl implements IFacturaService{
         return repoFactura.findByNumeroFact(numerofact);
     }
 
-    @Override
-    public Double calcularTotalfactura(String numFact) {
-        Factura factura = repoFactura.findByNumeroFact(numFact);
-        return  factura.getLineas().stream().mapToDouble(LineaFactura::getTotal).sum();
-    }
 
     @Override
     public Factura actualizarfactura(Factura factura) {
         return repoFactura.save(factura);
+    }
+
+    @Override
+    public Set<Factura> listarFacturas() {
+        return new HashSet<>(repoFactura.findAll());
     }
 
 

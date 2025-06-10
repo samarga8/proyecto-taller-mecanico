@@ -16,6 +16,10 @@ public class Factura implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Version
+    private Long version;
+
+
     @Column(unique = true)
     private String numeroFact;
 
@@ -24,6 +28,10 @@ public class Factura implements Serializable {
 
 
     private Double totalFactura;
+
+    private Double iva;
+
+    private Double totalFacturaDefinitivo;
 
     private Boolean pagada;
 
@@ -101,5 +109,21 @@ public class Factura implements Serializable {
 
     public void setPagada(Boolean pagada) {
         this.pagada = pagada;
+    }
+
+    public Double getIva() {
+        return iva;
+    }
+
+    public void setIva(Double iva) {
+        this.iva = iva;
+    }
+
+    public Double getTotalFacturaDefinitivo() {
+        return totalFacturaDefinitivo;
+    }
+
+    public void setTotalFacturaDefinitivo(Double totalFacturaDefinitivo) {
+        this.totalFacturaDefinitivo = totalFacturaDefinitivo;
     }
 }

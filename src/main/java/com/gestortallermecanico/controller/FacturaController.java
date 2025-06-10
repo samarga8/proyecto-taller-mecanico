@@ -80,14 +80,18 @@ public class FacturaController {
     public String guardarFactura(@PathVariable String numeroFact, HttpSession session) {
         Factura factura = (Factura) session.getAttribute("facturaEnProceso");
 
-        if (factura == null || !factura.getNumeroFact().equals(numeroFact)) {
+        if (factura == null) {
             return "redirect:/facturas";
         }
 
         double total = factura.getLineas().stream()
                 .mapToDouble(LineaFactura::getTotal)
                 .sum();
+        double iva = total * 0.21;
+        double definitivo = total + iva;
         factura.setTotalFactura(total);
+        factura.setIva(iva);
+        factura.setTotalFacturaDefinitivo(definitivo);
         facturaService.crearFactura(factura);
 
         List<LineaFactura> lista = lineaService.obtenerLineasPorNumeroFactura(numeroFact);
@@ -98,4 +102,11 @@ public class FacturaController {
         return "index";
     }
 
+    @GetMapping("/listarFacturas")
+    public String listarFacturas(Model model){
+        Set<Factura> facturas = facturaService.listarFacturas();
+
+        model.addAttribute("facturas",facturas);
+        return "facturas";
+    }
 }

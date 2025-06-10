@@ -20,24 +20,12 @@ public class Cliente {
 
     private String direccion;
     @Column(unique = true)
-    private String emial;
-    private String telefono;
+    private String email;private String telefono;
+
 
     @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Factura> facturas = new HashSet<>();
 
-    public Cliente() {
-    }
-
-    public Cliente(Long id, String dni, String nombre, String apellidos, String direccion, String emial, String telefono) {
-        this.id = id;
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.direccion = direccion;
-        this.emial = emial;
-        this.telefono = telefono;
-    }
 
     public Long getId() {
         return id;
@@ -95,11 +83,11 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public String getEmial() {
-        return emial;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmial(String emial) {
-        this.emial = emial;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

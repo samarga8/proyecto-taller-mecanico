@@ -1,5 +1,6 @@
 package com.gestortallermecanico.service;
 
+import com.gestortallermecanico.model.Cliente;
 import com.gestortallermecanico.model.Factura;
 
 import java.util.Set;
@@ -12,7 +13,9 @@ public interface IFacturaService {
     Factura obtenerFacturaCliente(String dni);
 
     Factura obtenerFacturaPorNumFact(String numerofact);
-    Double calcularTotalfactura(String numFact);
+
 
     Factura actualizarfactura(Factura factura);
+
+    Set<Factura> listarFacturas();
 }
