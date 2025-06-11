@@ -1,36 +1,29 @@
-package com.gestortallermecanico.model;
+package com.gestortallermecanico.model.dao;
 
-import jakarta.persistence.*;
 
-import java.io.Serializable;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
-@Entity
-public class Vehiculo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+public class VehiculoRegistroDTO {
+
+    @NotNull
     private String marca;
 
+    @NotNull
     private String modelo;
 
-    @Column(unique = true)
+
+    @NotNull
     private String matricula;
 
+    @NotNull
     private Integer anio;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotNull(message = "El DNI no puede ser nulo")
+    @Pattern(regexp = "\\d{8}[A-HJ-NP-TV-Z]", message = "Formato de DNI inválido")
+    private String dni;
 
     public String getMarca() {
         return marca;
@@ -56,7 +49,6 @@ public class Vehiculo {
         this.matricula = matricula;
     }
 
-
     public Integer getAnio() {
         return anio;
     }
@@ -65,12 +57,11 @@ public class Vehiculo {
         this.anio = anio;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getDni() {
+        return dni;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 }
-

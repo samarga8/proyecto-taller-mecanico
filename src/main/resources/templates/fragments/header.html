@@ -8,20 +8,7 @@
                 <div class="col">
                     <img th:src="@{/img/logo.jpg}" class="img-fluid" style="max-width: 150px;" alt="Logo taller">
                 </div>
-                <div class="col">
-                    <div class="dropdown">
-                        <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Vehiculos
-                        </a>
 
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{vehiculos}">Añadir vehículo</a></li>
-                            <li><a class="dropdown-item" th:href="@{vehiculos}">Listar Vehículos</a></li>
-                            <li><a class="dropdown-item" th:href="@{vehiculos}">Buscar por matricula</a></li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="col">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -30,6 +17,19 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/clientes/nuevoCliente}">Añadir cliente</a></li>
+                            <li><a class="dropdown-item" th:href="@{/clientes/listar}">Listar clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente/{origen}(origen='buscar')}">Contactar cliente</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Vehículos
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/vehiculos/nuevoVehiculo}">Añadir vehículo</a></li>
                             <li><a class="dropdown-item" th:href="@{/clientes/listar}">Listar clientes</a></li>
                             <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente/{origen}(origen='buscar')}">Contactar cliente</a></li>
                         </ul>
@@ -65,6 +65,20 @@
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
+                            Citas
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/citas}">Calendario citas</a></li>
+                            <li><a class="dropdown-item" th:href="@{facturacion}">Cobrar factura</a></li>
+                            <li><a class="dropdown-item" th:href="@{/facturas/listarFacturas}">Ver facturas</a></li>
+                            <li><a class="dropdown-item" th:href="@{facturacion}">Informes mensuales</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
                             Facturas
                         </button>
                         <ul class="dropdown-menu">
@@ -75,7 +89,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-3" id="navbar">
+                <div class="col-2" id="navbar">
                     <h5 class="text-dark-emphasis">Bienvenido <span sec:authentication="principal.username"></span></h5>
                     <ul class="nav navbar-nav">
                         <li sec:authorize="isAuthenticated()">
