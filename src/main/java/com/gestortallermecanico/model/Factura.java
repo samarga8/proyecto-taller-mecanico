@@ -2,6 +2,7 @@ package com.gestortallermecanico.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -31,9 +32,14 @@ public class Factura implements Serializable {
 
     private Double iva;
 
+    @DecimalMin("0.0")
     private Double totalFacturaDefinitivo;
 
     private Boolean pagada;
+
+    @OneToOne
+    @JoinColumn(name = "reparacion_id")
+    private Reparacion reparacion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente")
@@ -42,6 +48,7 @@ public class Factura implements Serializable {
 
     @OneToMany(mappedBy = "factura",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<LineaFactura> lineas = new HashSet<>();
+
 
     public Factura() {
     }
@@ -125,5 +132,21 @@ public class Factura implements Serializable {
 
     public void setTotalFacturaDefinitivo(Double totalFacturaDefinitivo) {
         this.totalFacturaDefinitivo = totalFacturaDefinitivo;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public Reparacion getReparacion() {
+        return reparacion;
+    }
+
+    public void setReparacion(Reparacion reparacion) {
+        this.reparacion = reparacion;
     }
 }

@@ -12,7 +12,114 @@
 </head>
 
 <body>
-<div th:insert="~{fragments/header :: cabecera}"></div>
+
+<div class="container text-center">
+    <div class="navbar-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <img th:src="@{/img/logo.jpg}" class="img-fluid" style="max-width: 150px;" alt="Logo taller">
+            </div>
+
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Clientes
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/clientes/nuevoCliente}">Añadir cliente</a></li>
+                        <li><a class="dropdown-item" th:href="@{/clientes/listar}">Listar clientes</a></li>
+                        <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente/{origen}(origen='buscar')}">Historial cliente</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Vehículos
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/vehiculos/nuevoVehiculo}">Añadir vehículo</a></li>
+
+                </div>
+            </div>
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Reparaciones
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/vehiculos/obtenerVehiculo}">Nueva reparación</a></li>
+                        <li><a class="dropdown-item" th:href="@{/reparaciones/lista}">Reparaciones activas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/reparaciones/listaFinalizada}">Reparaciones finalizadas</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle position-relative" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Inventario
+                        <span th:if="${hayStockMinimo}"
+                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                              th:text="${cantidadStockBajo}">!</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/inventario/nuevoProducto}">Añadir repuesto</a></li>
+                        <li><a class="dropdown-item" th:href="@{/inventario/lista}">Ver inventario</a></li>
+                        <li><a class="dropdown-item" href="https://www.daparto.es" target="_blank" rel="noopener noreferrer">Pedir stock</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Citas
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/citas}">Calendario citas</a></li>
+
+                        <li><a class="dropdown-item" th:href="@{/facturas/listarFacturas}">Ver facturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{facturacion}">Informes mensuales</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Facturas
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/clientes/obtenerCliente/{origen}(origen='factura')}">Nueva factura</a></li>
+
+                        <li><a class="dropdown-item" th:href="@{/facturas/listarFacturas}">Ver facturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{facturacion}">Informes mensuales</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-2" id="navbar">
+                <h5 class="text-dark-emphasis">Bienvenido <span sec:authentication="principal.username"></span></h5>
+                <ul class="nav navbar-nav">
+                    <li sec:authorize="isAuthenticated()">
+
+                        <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none;"></form>
+
+                        <a href="#" class="text-dark-emphasis" style="text-decoration: none"
+                           onclick="document.getElementById('logoutForm').submit(); return false;">
+                            Cerrar sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"

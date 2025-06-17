@@ -36,4 +36,21 @@ public class VehiculoServiceImpl implements IVehiculoService{
             throw new Exception("El cliente no existe");
         }
     }
+
+    @Override
+    public Vehiculo obtenerVehiculoPorMatricula(String matricula) throws Exception {
+        Optional<Vehiculo> vehiculo = vehiculoRepository.findVehiculoByMatricula(matricula);
+        if (vehiculo.isPresent()){
+            return vehiculo.get();
+        } else {
+            throw new Exception("El vehiculo no existe");
+        }
+
+
+    }
+
+    @Override
+    public Vehiculo obtenerVehiculoPorId(Long vehiculoId) {
+        return vehiculoRepository.findById(vehiculoId).get();
+    }
 }

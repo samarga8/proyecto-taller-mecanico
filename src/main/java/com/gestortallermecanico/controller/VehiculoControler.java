@@ -21,7 +21,6 @@ public class VehiculoControler {
     @Autowired
     private VehiculoServiceImpl service;
 
-
     @GetMapping("/nuevoVehiculo")
     public String formularioVehiculo(Model model){
         model.addAttribute("vehiculo",new VehiculoRegistroDTO());
@@ -49,4 +48,29 @@ public class VehiculoControler {
             return "formularioVehiculo";
         }
     }
+
+    @GetMapping("/obtenerVehiculo")
+    public String formularioObtenerVehiculo(Model model){
+        model.addAttribute("vehiculo",new Vehiculo());
+        model.addAttribute("accion","vehiculos/obtenerVehiculo");
+        return "formularioObtenerVehiculo";
+
+    }
+
+    @PostMapping("/obtenerVehiculo")
+    public String cargarVehiculo(@ModelAttribute("vehiculo") Vehiculo v, Model model) {
+        try {
+            Vehiculo vehiculo = service.obtenerVehiculoPorMatricula(v.getMatricula());
+            if (vehiculo == null) {
+                model.addAttribute("error", "Vehículo no encontrado");
+                return "formularioObtenerVehiculo";
+            }
+            model.addAttribute("vehiculo", vehiculo);
+            return "redirect:/reparaciones/nuevaReparacion?vehiculoId=" + vehiculo.getId();
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al buscar el vehículo");
+            return "formularioObtenerVehiculo";
+        }
+    }
+
 }
